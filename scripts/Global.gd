@@ -28,7 +28,31 @@ func init_list():
 	init_primary_key()
 
 func init_array():
-	pass
+	array.hex = []
+	array.square150 = []
+	array.square90 = [] 
+	array.square30 = [] 
+	array.triangle0 = []
+	array.triangle180 = [] 
+	array.neighbor = [
+		[
+			Vector2( 1,-1), 
+			Vector2( 1, 0), 
+			Vector2( 0, 1), 
+			Vector2(-1, 0), 
+			Vector2(-1,-1),
+			Vector2( 0,-1)
+		],
+		
+		[
+			Vector2( 1, 0),
+			Vector2( 1, 1),
+			Vector2( 0, 1),
+			Vector2(-1, 1),
+			Vector2(-1, 0),
+			Vector2( 0,-1)
+		]
+	]
 
 func init_scene():
 	pass
@@ -49,11 +73,13 @@ func init_obj():
 
 func init_data():
 	data.size = {}
-	data.size.bar = Vector2(91,30)
-	data.size.cell = Vector2(140,164)
+	data.size.n = 5
+	data.size.map = Vector2(data.size.n * 2 + 1, data.size.n * 2 + 1)
+	data.size.bar = Vector2(91, 30)
+	data.size.cell = Vector2(140, 164)
 	data.hex = {}
 	data.hex.a = 60
-	data.scale = 0.5
+	data.scale = 0.25
 
 func init_flag():
 	flag.ready = false
