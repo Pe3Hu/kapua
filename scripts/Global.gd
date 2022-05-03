@@ -11,12 +11,6 @@ var obj = {}
 var flag = {}
 var data = {}
 
-func init_window_size():
-	list.window_size = {}
-	list.window_size.width = ProjectSettings.get_setting("display/window/size/width")
-	list.window_size.height = ProjectSettings.get_setting("display/window/size/height")
-	list.window_size.center = Vector2(list.window_size.width/2, list.window_size.height/2)
-
 func init_primary_key():
 	list.primary_key = {}
 	list.primary_key.lord = 0
@@ -24,8 +18,10 @@ func init_primary_key():
 	list.primary_key.encounter = 0
 
 func init_list():
-	init_window_size()
 	init_primary_key()
+	
+	list.terrain = {}
+	list.terrain.mountain = []
 
 func init_array():
 	array.hex = []
@@ -43,7 +39,6 @@ func init_array():
 			Vector2(-1,-1),
 			Vector2( 0,-1)
 		],
-		
 		[
 			Vector2( 1, 0),
 			Vector2( 1, 1),
@@ -53,6 +48,35 @@ func init_array():
 			Vector2( 0,-1)
 		]
 	]
+	array.neighbor2 = [
+		[
+			Vector2( 2,-2), 
+			Vector2( 2,-1), 
+			Vector2( 2, 0), 
+			Vector2( 1, 1), 
+			Vector2( 0, 2), 
+			Vector2(-1, 1), 
+			Vector2(-2, 0), 
+			Vector2(-2,-1), 
+			Vector2(-2,-2),
+			Vector2(-1,-2),
+			Vector2( 0,-2)
+		],
+		[
+			Vector2( 2, 0),
+			Vector2( 2, 1),
+			Vector2( 2, 2),
+			Vector2( 1, 2),
+			Vector2( 0, 2),
+			Vector2(-1, 2),
+			Vector2(-2, 2),
+			Vector2(-2, 1),
+			Vector2(-2, 0),
+			Vector2(-1,-1),
+			Vector2( 0,-2)
+		]
+	]
+	array.region = []
 
 func init_scene():
 	pass
@@ -73,7 +97,12 @@ func init_obj():
 
 func init_data():
 	data.size = {}
+	data.size.window = {}
+	data.size.window.width = ProjectSettings.get_setting("display/window/size/width")
+	data.size.window.height = ProjectSettings.get_setting("display/window/size/height")
+	data.size.window.center = Vector2(data.size.window.width / 2, data.size.window.height / 2)
 	data.size.n = 5
+	data.size.rings = data.size.n * 2
 	data.size.map = Vector2(data.size.n * 2 + 1, data.size.n * 2 + 1)
 	data.size.bar = Vector2(91, 30)
 	data.size.cell = Vector2(140, 164)
