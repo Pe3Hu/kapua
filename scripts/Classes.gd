@@ -62,6 +62,17 @@ class Tile:
 				string.terrain = "Volcano"
 			7:
 				string.terrain = "Canyon"
+	
+	func get_joint_neighbors(tile_):
+		var neighbors = []
+		var first = get_neighbors()
+		var second = tile_.get_neighbors()
+		
+		for neighbor in first:
+			if second.has(neighbor):
+				neighbors.append(neighbor)
+		
+		return neighbors
 
 class Chain:
 	var number = {}

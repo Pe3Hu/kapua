@@ -21,7 +21,14 @@ func init_list():
 	init_primary_key()
 	
 	list.terrain = {}
+	list.terrain.prairie = []
+	list.terrain.river = [[]]
 	list.terrain.mountain = []
+	list.terrain.savanna = []
+	list.terrain.taiga = []
+	list.terrain.selva = []
+	list.terrain.volcano = []
+	list.terrain.canyon = []
 
 func init_array():
 	array.hex = []
@@ -46,34 +53,6 @@ func init_array():
 			Vector2(-1, 1),
 			Vector2(-1, 0),
 			Vector2( 0,-1)
-		]
-	]
-	array.neighbor2 = [
-		[
-			Vector2( 2,-2), 
-			Vector2( 2,-1), 
-			Vector2( 2, 0), 
-			Vector2( 1, 1), 
-			Vector2( 0, 2), 
-			Vector2(-1, 1), 
-			Vector2(-2, 0), 
-			Vector2(-2,-1), 
-			Vector2(-2,-2),
-			Vector2(-1,-2),
-			Vector2( 0,-2)
-		],
-		[
-			Vector2( 2, 0),
-			Vector2( 2, 1),
-			Vector2( 2, 2),
-			Vector2( 1, 2),
-			Vector2( 0, 2),
-			Vector2(-1, 2),
-			Vector2(-2, 2),
-			Vector2(-2, 1),
-			Vector2(-2, 0),
-			Vector2(-1,-1),
-			Vector2( 0,-2)
 		]
 	]
 	array.region = []
