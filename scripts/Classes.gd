@@ -82,3 +82,24 @@ class Chain:
 	func _init(input_):
 		number.index = input_.index
 		string.type
+
+class Beast:
+	var number = {}
+	var string = {}
+	var array = {}
+	var list = {}
+	var flag = {}
+	var node = {}
+	var vector = {}
+	
+	func _init(input_):
+		number.index = input_.index
+
+class Dice:
+	var number = {}
+	var array = {}
+	
+	func _init(input_):
+		number.index = input_.index
+		number.edges = input_.edges
+		array.value = input_.values

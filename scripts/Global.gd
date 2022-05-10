@@ -13,9 +13,9 @@ var data = {}
 
 func init_primary_key():
 	list.primary_key = {}
-	list.primary_key.lord = 0
-	list.primary_key.dummy = 0
-	list.primary_key.encounter = 0
+	list.primary_key.tile = 0
+	list.primary_key.dice = 0
+	list.primary_key.beast = 0
 
 func init_list():
 	init_primary_key()
@@ -29,6 +29,15 @@ func init_list():
 	list.terrain.selva = []
 	list.terrain.volcano = []
 	list.terrain.canyon = []
+	list.region = {
+		"Mountain": 0,
+		"River": 0,
+		"Prairie": 0,
+		"Savanna": 0,
+		"Taiga": 0,
+		"Selva": 0,
+		"": 0
+	}
 
 func init_array():
 	array.hex = []
@@ -56,6 +65,8 @@ func init_array():
 		]
 	]
 	array.region = []
+	array.dice = []
+	array.beast = []
 
 func init_scene():
 	pass

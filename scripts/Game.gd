@@ -6,12 +6,31 @@ func _ready():
 	around_center()
 	init_rings()
 	init_terrains()
-	grow_regions()
-	
+	#grow_regions()
 	paint_maps()
+	#calc_roll()
+	init_beasts()
 
 func _process(delta):
 	pass
+
+func calc_roll():
+	var n = 6
+	var k = 5
+	var array = []
+	
+	for _i in pow(n,k):
+		var number = _i 
+		var arr_ = []
+		
+		while arr_.size() < 5:
+			var _j = number % n
+			arr_.append(_j)
+			number = int(ceil(number / n))
+		arr_.invert()
+		array.append(arr_)
+	print(array.pop_back())
+	print(array.size())
 
 func init_maps():
 	var a = Global.data.hex.a * Global.data.scale
@@ -46,42 +65,42 @@ func init_maps():
 		Global.array.triangle180.append([])
 	
 		for _x in Global.data.size.map.x:
-			var index = (_y * Global.data.size.map.x + _x) * 6
 			var input = {}
 			input.grid = Vector2(_x,_y)
 			input.visiable = false
-			input.index = index
+			input.index = Global.list.primary_key.tile * 6
 			input.edges = "6"
 			input.parent = Global.node.TileMapHex
 			var tile = Classes.Tile.new(input)
 			Global.array.hex[_y].append(tile)
 			
 			input.edges = "4"
-			input.index = index + 1
+			input.index = Global.list.primary_key.tile * 6 + 1
 			input.parent = Global.node.TileMapSquare150
 			tile = Classes.Tile.new(input)
 			Global.array.square150[_y].append(tile)
 			
-			input.index = index + 3
+			input.index = Global.list.primary_key.tile * 6 + 3
 			input.parent = Global.node.TileMapSquare90
 			tile = Classes.Tile.new(input)
 			Global.array.square90[_y].append(tile)
 			
-			input.index = index + 5
+			input.index = Global.list.primary_key.tile * 6 + 5
 			input.parent = Global.node.TileMapSquare30
 			tile = Classes.Tile.new(input)
 			Global.array.square30[_y].append(tile)
 			
 			input.edges = "3"
-			input.index = index + 2
+			input.index = Global.list.primary_key.tile * 6 + 2
 			input.parent = Global.node.TileMapTriangle180
 			tile = Classes.Tile.new(input)
 			Global.array.triangle180[_y].append(tile)
 			
-			input.index = index + 4
+			input.index = Global.list.primary_key.tile * 6 + 4
 			input.parent = Global.node.TileMapTriangle0
 			tile = Classes.Tile.new(input)
 			Global.array.triangle0[_y].append(tile)
+		Global.list.primary_key.tile += 6
 
 func around_center():
 	var core = Global.array.hex[Global.data.size.n][Global.data.size.n]
@@ -336,8 +355,8 @@ func init_mountains():
 		Global.list.terrain.mountain.append(original_element)
 	for reflected_element in reflected_elements:
 		Global.list.terrain.mountain.append(reflected_element)
-#	for _i in range(0,reflected_elements.size()-1,1):
-#		Global.list.terrain.mountain.append(reflected_elements[_i])
+	for _i in range(0,reflected_elements.size()-1,1):
+		Global.list.terrain.mountain.append(reflected_elements[_i])
 	for hex in Global.list.terrain.mountain:
 		hex.set_terrain(2)
 
@@ -563,7 +582,7 @@ func init_polars():
 	bubble_sort(top_4, "size")
 	top_4.resize(4)
 	bubble_sort(top_4, "polar_d")
-#
+	
 	var nearest = {
 		"region": 0,
 		"hex": -1,
@@ -629,30 +648,41 @@ func connect_hexs():
 				square.set_terrain(1)
 
 func grow_regions():
+	cnt()
 	var terrains = ["Prairie","Savanna","Taiga","Selva"]
-	var n = 200
+	var min_size = min(Global.list.region["Mountain"], Global.list.region["River"])
+
 	
-	for _i in n:
+	var flag = false
+	var n = 0
+	
+	while !flag && n < min_size:
+		flag = true
+		n+=1
+		
 		for terrain in terrains:
-			grow_terrain(terrain)
+			if Global.list.region[terrain] < min_size:
+				grow_terrain(terrain)
+				flag = flag && Global.list.region[terrain] >= min_size
+		print(n, flag)
 
 func cnt():
-#	var count = 0
-#	for _y in Global.data.size.map.y:
-#		for _x in Global.data.size.map.x:
-#			if Global.array.hex[_y][_x].flag.visiable:
-#				count += 7
-#			if Global.array.square150[_y][_x].flag.visiable:
-#				count += 5
-#			if Global.array.square90[_y][_x].flag.visiable:
-#				count += 5
-#			if Global.array.square30[_y][_x].flag.visiable:
-#				count += 5
-#			if Global.array.triangle180[_y][_x].flag.visiable:
-#				count += 4
-#			if Global.array.triangle0[_y][_x].flag.visiable:
-#				count += 4
-	pass
+	for _y in Global.data.size.map.y:
+		for _x in Global.data.size.map.x:
+			if Global.array.hex[_y][_x].flag.visiable:
+				Global.list.region[Global.array.hex[_y][_x].string.terrain] += 7
+			if Global.array.square150[_y][_x].flag.visiable:
+				Global.list.region[Global.array.square150[_y][_x].string.terrain] += 5
+			if Global.array.square90[_y][_x].flag.visiable:
+				Global.list.region[Global.array.square90[_y][_x].string.terrain] += 5
+			if Global.array.square30[_y][_x].flag.visiable:
+				Global.list.region[Global.array.square30[_y][_x].string.terrain] += 5
+			if Global.array.triangle180[_y][_x].flag.visiable:
+				Global.list.region[Global.array.triangle180[_y][_x].string.terrain] += 4
+			if Global.array.triangle0[_y][_x].flag.visiable:
+				Global.list.region[Global.array.triangle0[_y][_x].string.terrain] += 4
+	
+	return min(Global.list.region["Mountain"], Global.list.region["River"])
 
 func paint_maps():
 	for _y in Global.data.size.map.y:
@@ -801,20 +831,24 @@ func get_borderlands(terrain_):
 			
 	for tile in tiles:
 		for neighbor in tile.get_neighbors():
-			if !borderlands.has(neighbor) && !tiles.has(neighbor) && neighbor.number.terrain == -1:
+			if !tiles.has(neighbor) && neighbor.number.terrain == -1:
 				borderlands.append(neighbor)
 	
 	return borderlands
 
 func grow_terrain(terrain_):
 	var options = get_borderlands(terrain_)
-	if options.size() > 0:
+	var n = 1
+	
+	while n > 0 && options.size():
+		n -= 1
 		
 		Global.rng.randomize()
 		var index_r = Global.rng.randi_range(0, options.size() - 1)
-		var tile = options[index_r]
+		var tile = options.pop_at(index_r)
+		Global.list.region[terrain_] += int(tile.string.edges)
 		
-		print(tile.string.edges, tile.vector.grid, terrain_, options.size())
+		#print(tile.string.edges, tile.vector.grid, terrain_, options.size())
 		match terrain_:
 			"Prairie":
 				Global.list.terrain.prairie.append(tile)
@@ -870,6 +904,29 @@ func fixed_terrain():
 	Global.array.hex[7][8].set_terrain(2)
 	Global.array.hex[8][8].set_terrain(2)
 	Global.array.hex[8][9].set_terrain(2)
+
+func init_dices():
+	var input = {}
+	input.index = Global.list.primary_key.dice
+	input.edges = 6
+	input.values = ["I","I","I","II","II","III"]
+	var dice = Classes.Dice.new(input)
+	Global.array.dice.append(dice)
+	Global.list.primary_key.dice += 1
+
+func init_beasts():
+	init_dices()
+	
+	var input = {}
+	input.index = Global.list.primary_key.beast
+	var beast = Classes.Beast.new(input)
+	Global.array.beast.append(beast)
+	Global.list.primary_key.beast += 1
+	
+	input.index = Global.list.primary_key.beast
+	beast = Classes.Beast.new(input)
+	Global.array.beast.append(beast)
+	Global.list.primary_key.beast += 1
 
 func _on_Timer_timeout():
 	Global.node.TimeBar.value +=1
