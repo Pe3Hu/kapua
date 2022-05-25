@@ -17,8 +17,113 @@ func init_primary_key():
 	list.primary_key.dice = 0
 	list.primary_key.beast = 0
 
+func init_fragment():
+	list.fragment = {}
+	list.fragment.abbreviation = ["A","B","C","D","E","F","G","H","I","J","L","M","O","P","Q","R","S","T","V","W","Y"]
+	list.fragment.part = {
+		"Onslaught": {
+			"Prelude": ["Jab","Incision","Crush","Wave","Explosion"],#Укол Разрез Раcкол Волна Взрыв 
+			"Сulmination": ["Distinct","Volley","Queue","Aim","Flow"],#Одиночный Самонаведение Луч Залп Очередь
+			"Epilogue": ["Rune","Seal","Hex","Observance","Massif"]#Руна Печать Заклинание Ритуал Массив
+		},
+		"Retention": {
+			"Prelude": ["Glide","Parry","Block","Let","Teleport","Yoke"],#Скольжение Парирование Блок Барьер Блинк Захват
+			"Epilogue": ["Rune","Seal","Hex","Observance","Massif"]#Руна Печать Заклинание Ритуал Массив
+		}
+	}
+	list.fragment.synergy = {}
+	
+	for abbreviation in list.fragment.abbreviation: 
+		list.fragment.synergy[abbreviation] = {}
+
+	var paths = {
+		"fragment": "res://data/fragment.json"
+	}
+	
+	for key in paths.keys():
+		var data_file: File = File.new()
+		data[key] = {}
+		
+		if data_file.file_exists(paths[key]):
+			data_file.open(paths[key], File.READ)
+			var data_json = JSON.parse(data_file.get_as_text())
+			data_file.close()
+			data[key] = data_json.result
+			
+	for data_ in data["fragment"]:
+		var a = list.fragment.part[data_["first_keys"][0]][data_["second_keys"][0]]
+		var b = list.fragment.part[data_["first_keys"][1]][data_["second_keys"][1]]
+		#sum check
+		#var j_sums = [0,0,0,0,0,0]
+		#var i_sums = [0,0,0,0,0,0]
+		
+		for _i in a.size():
+			for _j in b.size():
+				list.fragment.synergy[a[_i][0]][b[_j][0]] = data_["values"][_i][_j]
+				list.fragment.synergy[b[_j][0]][a[_i][0]] = data_["values"][_i][_j]
+				#i_sums[_i] += data_["values"][_i][_j]
+				#j_sums[_j] += data_["values"][_i][_j]
+		#print(j_sums, i_sums)
+	
+	list.parameter = {}
+	list.parameter.abbreviation = ["S","D","I","W"]
+	list.parameter.full = ["Strength","Dexterity","Intellect","Will"]#Сила, Ловкость, Интеллект, Воля
+	list.aspect = {}
+	list.aspect.full = ["Immolation","Vow","Blood","Combination","Unity","Order","Ghost","Soul","Trap","Artillery","Pride"]#Жертва	Клятва	Кровь	Комбо	Единство	Стихия	Приказ	Дух	Душа	Ловушка	Артиллерия	Гордыня
+	list.aspect.parameter = {
+		"Immolation": {
+			"Leader": "S",
+			"Wingman": "D"
+		},
+		"Vow": {
+			"Leader": "S",
+			"Wingman": "W"
+		},
+		"Blood": {
+			"Leader": "S",
+			"Wingman": "I"
+		},
+		"Combination": {
+			"Leader": "D",
+			"Wingman": "I"
+		},
+		"Unity": {
+			"Leader": "D",
+			"Wingman": "W"
+		},
+		"Element": {
+			"Leader": "I",
+			"Wingman": "W"
+		},
+		"Order": {
+			"Leader": "W",
+			"Wingman": "I"
+		},
+		"Ghost": {
+			"Leader": "W",
+			"Wingman": "D"
+		},
+		"Soul": {
+			"Leader": "W",
+			"Wingman": "S"
+		},
+		"Trap": {
+			"Leader": "I",
+			"Wingman": "D"
+		},
+		"Artillery": {
+			"Leader": "I",
+			"Wingman": "S"
+		},
+		"Pride": {
+			"Leader": "D",
+			"Wingman": "S"
+		}
+		}
+
 func init_list():
 	init_primary_key()
+	init_fragment()
 	
 	list.terrain = {}
 	list.terrain.prairie = []
@@ -38,6 +143,7 @@ func init_list():
 		"Selva": 0,
 		"": 0
 	}
+
 
 func init_array():
 	array.hex = []

@@ -103,3 +103,28 @@ class Dice:
 		number.index = input_.index
 		number.edges = input_.edges
 		array.value = input_.values
+
+class Fragment:
+	var number = {}
+	var string = {}
+	var array = {}
+	var list = {}
+	var flag = {}
+	var node = {}
+	var vector = {}
+	
+	func _init(input_):
+		number.index = input_.index
+
+
+class Battleground:
+	var number = {}
+	var string = {}
+	var array = {}
+	var list = {}
+	var flag = {}
+	var node = {}
+	var vector = {}
+	
+	func _init(input_):
+		number.index = input_.index

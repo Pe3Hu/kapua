@@ -1,0 +1,26 @@
+[
+	{"first_keys": ["Onslaught","Onslaught"],
+	"second_keys": ["Prelude","Сulmination"],
+	"values": [[5,5,9,3,3],[5,9,5,5,1],[5,1,3,9,7],[5,7,7,1,5],[5,3,1,7,9]]
+	},
+	{"first_keys": ["Onslaught","Onslaught"],
+	"second_keys": ["Prelude","Epilogue"],
+	"values": [[9,7,5,3,1],[7,9,3,1,5],[5,5,9,5,1],[3,1,3,9,9],[1,3,5,7,9]]
+	},
+	{"first_keys": ["Onslaught","Onslaught"],
+	"second_keys": ["Сulmination","Epilogue"],
+	"values": [[9,7,5,3,1],[3,9,1,7,5],[7,5,3,1,9],[3,2,9,5,6],[3,2,7,9,4]]
+	},
+	{"first_keys": ["Retention","Onslaught"],
+	"second_keys": ["Prelude","Prelude"],
+	"values": [[7,7,9,1,1],[9,7,5,3,1],[2,9,4,4,6],[5,1,2,9,8],[2,1,5,8,9],[5,5,5,5,5]]
+	},
+	{"first_keys": ["Retention","Onslaught"],
+	"second_keys": ["Prelude","Сulmination"],
+	"values": [[5,1,9,3,7],[5,7,1,9,3],[5,7,3,9,1],[5,9,7,1,3],[5,1,9,3,7],[5,5,1,5,9]]
+	},
+	{"first_keys": ["Retention","Retention"],
+	"second_keys": ["Prelude","Epilogue"],
+	"values": [[9,9,4,2,1],[7,6,5,4,3],[5,4,9,4,3],[2,3,4,7,9],[1,3,5,9,7],[6,5,3,4,7]]
+	}
+]
