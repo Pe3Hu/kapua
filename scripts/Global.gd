@@ -144,7 +144,6 @@ func init_list():
 		"": 0
 	}
 
-
 func init_array():
 	array.hex = []
 	array.square150 = []

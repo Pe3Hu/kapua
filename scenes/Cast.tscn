@@ -1,0 +1,43 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://scenes/RetentionEpilogue.tscn" type="PackedScene" id=1]
+[ext_resource path="res://scenes/OnslaughtPrelude.tscn" type="PackedScene" id=2]
+[ext_resource path="res://scenes/OnslaughtLock.tscn" type="PackedScene" id=3]
+[ext_resource path="res://scenes/RetentionPrelude.tscn" type="PackedScene" id=4]
+[ext_resource path="res://scenes/RetentionLock.tscn" type="PackedScene" id=5]
+[ext_resource path="res://scenes/OnslaughtEpilogue.tscn" type="PackedScene" id=6]
+
+[node name="Cast" type="Node2D"]
+
+[node name="Onslaught" type="Node2D" parent="."]
+visible = false
+
+[node name="OnslaughtPrelude" parent="Onslaught" instance=ExtResource( 2 )]
+
+[node name="OnslaughtLock1" parent="Onslaught" instance=ExtResource( 3 )]
+position = Vector2( 48, 0 )
+
+[node name="OnslaughtСulmination" parent="Onslaught" instance=ExtResource( 6 )]
+position = Vector2( 96, 0 )
+scale = Vector2( 1, 1 )
+
+[node name="OnslaughtLock2" parent="Onslaught" instance=ExtResource( 3 )]
+position = Vector2( 144, 0 )
+
+[node name="OnslaughtСulmination2" parent="Onslaught" instance=ExtResource( 6 )]
+position = Vector2( 196, 0 )
+scale = Vector2( 1, 1 )
+
+[node name="Retention" type="Node2D" parent="."]
+visible = false
+
+[node name="RetentionPrelude" parent="Retention" instance=ExtResource( 4 )]
+scale = Vector2( 1, 1 )
+
+[node name="RetentionLock" parent="Retention" instance=ExtResource( 5 )]
+position = Vector2( 48, 0 )
+scale = Vector2( 1, 1 )
+
+[node name="RetentionEpilogue" parent="Retention" instance=ExtResource( 1 )]
+position = Vector2( 96, 0 )
+scale = Vector2( 1, 1 )
