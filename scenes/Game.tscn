@@ -35,6 +35,16 @@ tint_progress = Color( 0.964706, 0.584314, 0.0470588, 1 )
 script = ExtResource( 5 )
 
 [node name="TileMapHex" type="TileMap" parent="TileMaps"]
+visible = false
+z_index = 6
+tile_set = ExtResource( 4 )
+cell_size = Vector2( 140, 164 )
+cell_custom_transform = Transform2D( 60, 0, 0, 60, 0, 0 )
+cell_half_offset = 1
+format = 1
+
+[node name="TileMapHue" type="TileMap" parent="TileMaps"]
+scale = Vector2( 0.25, 0.25 )
 z_index = 6
 tile_set = ExtResource( 4 )
 cell_size = Vector2( 140, 164 )
@@ -43,6 +53,7 @@ cell_half_offset = 1
 format = 1
 
 [node name="TileMapSquare150" type="TileMap" parent="TileMaps"]
+visible = false
 position = Vector2( 90, 52 )
 z_index = 5
 tile_set = ExtResource( 12 )
@@ -52,6 +63,7 @@ cell_half_offset = 1
 format = 1
 
 [node name="TileMapSquare90" type="TileMap" parent="TileMaps"]
+visible = false
 position = Vector2( 30, 104 )
 z_index = 4
 tile_set = ExtResource( 11 )
@@ -61,6 +73,7 @@ cell_half_offset = 1
 format = 1
 
 [node name="TileMapSquare30" type="TileMap" parent="TileMaps"]
+visible = false
 position = Vector2( -50, 53 )
 z_index = 3
 tile_set = ExtResource( 10 )
@@ -70,6 +83,7 @@ cell_half_offset = 1
 format = 1
 
 [node name="TileMapTriangle180" type="TileMap" parent="TileMaps"]
+visible = false
 position = Vector2( 81, 103 )
 tile_set = ExtResource( 3 )
 cell_size = Vector2( 140, 164 )
@@ -78,6 +92,7 @@ cell_half_offset = 1
 format = 1
 
 [node name="TileMapTriangle0" type="TileMap" parent="TileMaps"]
+visible = false
 position = Vector2( -22, 103 )
 tile_set = ExtResource( 9 )
 cell_size = Vector2( 140, 164 )

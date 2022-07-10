@@ -8,6 +8,7 @@ func _ready():
 	init_terrains()
 	#grow_regions()
 	paint_maps()
+	noise()
 
 func init_maps():
 	var a = Global.data.hex.a * Global.data.scale
@@ -110,8 +111,6 @@ func around_center():
 			
 		var squares = []
 		var grid = around.vector.grid 
-		
-		
 		
 		if check_border(grid):
 			squares.append(Global.array.square150[grid.y][grid.x])
@@ -877,4 +876,54 @@ func fixed_terrain():
 	Global.array.hex[8][8].set_terrain(2)
 	Global.array.hex[8][9].set_terrain(2)
 
+func noise():
+	Global.rng.randomize()
+	Global.obj.osn.seed = Global.rng.randi()
+	
+	Global.obj.osn.octaves = 9
+	Global.obj.osn.period = 5
+	Global.obj.osn.lacunarity = 0.5
+	Global.obj.osn.persistence = 0.5
+	
+	_gen()
+	
+func _gen():
+	for _x in Global.data.size.map.x:
+		for _y in Global.data.size.map.y:
+			if Global.array.hex[_y][_x].flag.visiable:
+				var vec = Vector2(_x,_y)
+				var axial = oddq_to_axial(vec)
+				var noise = Global.obj.osn.get_noise_3d(float(axial.x),float(axial.y),float(axial.z))
+				
+				if noise > Global.data.osn.max:
+					Global.data.osn.max = noise
+				if noise < Global.data.osn.min:
+					Global.data.osn.min = noise
+				
+	Global.data.osn.l = Global.data.osn.max - Global.data.osn.min
+	
+	for _x in Global.data.size.map.x:
+		for _y in Global.data.size.map.y:
+			if Global.array.hex[_y][_x].flag.visiable:
+				var vec = Vector2(_x,_y)
+				var axial = oddq_to_axial(vec)
+				var index = _get_tile_index(Global.obj.osn.get_noise_3d(float(axial.x),float(axial.y),float(axial.z)))
+				Global.node.TileMapHue.set_cellv(vec,index) 
 
+func _get_tile_index(noise_sample):
+	var indexs = [3,0,5,7,1,4,2,6]
+	var noise_shifted = noise_sample - Global.data.osn.min
+	var _i = floor(noise_shifted / Global.data.osn.l * (indexs.size()-1))
+	#print(Global.data.osn.min, "| ", Global.data.osn.max, " | ", Global.data.osn.l, " | ",noise_sample, " ", noise_shifted / Global.data.osn.l," ", _i)
+	return indexs[_i]
+
+func axial_to_oddq(hex):
+    var x = hex.x
+    var y = hex.y + (hex.x - (int(hex.x)%2)) / 2
+    return Vector2(x, y)
+
+func oddq_to_axial(hex):
+	var q = hex.y
+	var r = hex.y - (hex.x - (int(hex.x)%2)) / 2
+	var s = -hex.x-hex.y
+	return Vector3(q, r, s)

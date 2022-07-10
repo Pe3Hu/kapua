@@ -98,11 +98,40 @@ class Beast:
 class Dice:
 	var number = {}
 	var array = {}
+	var list = {}
 	
 	func _init(input_):
 		number.index = input_.index
 		number.edges = input_.edges
 		array.value = input_.values
+
+class Combination:
+	var number = {}
+	var array = {}
+	var list = {}
+	
+	func _init(input_):
+		number.index = input_.index
+		array.request = input_.requests
+		array.outcome = input_.outcomes
+
+class Outcome:
+	var list = {}
+	
+	func _init(input_):
+		list.description = input_.description
+
+class Target:
+	var number = {}
+	var flag = {}
+	
+	func _init(input_):
+		number.index = input_.index
+		flag.ally = input_.ally
+		flag.enemy = input_.enemy
+		flag.hp = input_.hp
+		flag.dice = input_.dice
+		flag.status = input_.status
 
 class Fragment:
 	var number = {}
@@ -115,7 +144,6 @@ class Fragment:
 	
 	func _init(input_):
 		number.index = input_.index
-
 
 class Battleground:
 	var number = {}

@@ -16,6 +16,8 @@ func init_primary_key():
 	list.primary_key.tile = 0
 	list.primary_key.dice = 0
 	list.primary_key.beast = 0
+	list.primary_key.description = 0
+	list.primary_key.request = 0
 
 func init_fragment():
 	list.fragment = {}
@@ -121,9 +123,70 @@ func init_fragment():
 		}
 		}
 
+func init_request():
+	array.symbol = ["I","II","III","IV"]
+	array.request = []
+	list.request = {}
+	var type = "symbol"
+	list.request[type] = {}
+	
+	for subtype in array.symbol:
+		list.request[type][subtype] = {}
+		
+		for _s in range(1,6):
+			var request = {}
+			request.index = list.primary_key.request
+			request.type = type
+			request.size = _s
+			request.subtype = subtype
+			array.request.append(request)
+			list.request[type][subtype][_s] = list.primary_key.request
+			list.primary_key.request += 1
+	
+	type = "serial"
+	list.request[type] = {}
+	var subtype = "seriatim"
+	
+	list.request[type] = {}
+	list.request[type][subtype] = {}
+	
+	for _s in range(4,6):
+		var request = {}
+		request.index = list.primary_key.request
+		request.type = type
+		request.size = _s
+		request.subtype = subtype
+		array.request.append(request)
+		list.request[type][subtype][_s] = list.primary_key.request
+		list.primary_key.request += 1
+
+func init_dice():
+	init_request()
+	
+	array.dice = []
+	var input = {}
+	input.edges = 6
+	input.values = ["I","I","I","II","II","III"]
+	add_dice(input) 
+	
+	input.values = ["I","I","I","II","IV","III"]
+	add_dice(input) 
+	
+	input.values = ["I","I","II","II","IV","III"]
+	add_dice(input) 
+	
+	list.dice = {}
+	list.dice.description = []
+	var description = {}
+	description.index = list.primary_key.description
+	var dice = {}
+	description.dice = dice
+	#description.request
+
 func init_list():
 	init_primary_key()
 	init_fragment()
+	init_dice()
 	
 	list.terrain = {}
 	list.terrain.prairie = []
@@ -185,10 +248,12 @@ func init_node():
 	node.TileMapSquare30 = get_node("/root/Game/TileMaps/TileMapSquare30") 
 	node.TileMapTriangle0 = get_node("/root/Game/TileMaps/TileMapTriangle0") 
 	node.TileMapTriangle180 = get_node("/root/Game/TileMaps/TileMapTriangle180") 
+	node.TileMapHue = get_node("/root/Game/TileMaps/TileMapHue") 
 	
 func init_obj():
 	obj.field = {}
 	ui.bar = []
+	obj.osn = OpenSimplexNoise.new()
 
 func init_data():
 	data.size = {}
@@ -204,6 +269,10 @@ func init_data():
 	data.hex = {}
 	data.hex.a = 60
 	data.scale = 0.25
+	data.osn = {}
+	data.osn.min = 1
+	data.osn.max = -1
+	data.osn.l = 0
 
 func init_flag():
 	flag.ready = false
@@ -217,6 +286,12 @@ func _ready():
 	init_obj()
 	init_data()
 	init_flag()
+
+func add_dice(input_):
+	input_.index = list.primary_key.dice
+	var dice = Classes.Dice.new(input_)
+	array.dice.append(array.dice)
+	list.primary_key.dice += 1
 
 func add_child_node(parent_node_path_,child_node_):
 	#set position if needed
