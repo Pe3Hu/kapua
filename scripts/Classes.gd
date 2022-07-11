@@ -98,7 +98,6 @@ class Beast:
 class Dice:
 	var number = {}
 	var array = {}
-	var list = {}
 	
 	func _init(input_):
 		number.index = input_.index
@@ -108,7 +107,6 @@ class Dice:
 class Combination:
 	var number = {}
 	var array = {}
-	var list = {}
 	
 	func _init(input_):
 		number.index = input_.index
@@ -119,19 +117,49 @@ class Outcome:
 	var list = {}
 	
 	func _init(input_):
-		list.description = input_.description
+		list.target = input_.target
+		list.result = input_.result
+	
+	
+	func follow_target():
+		var primary = null
+		var second = null
+		
+		match list.target.primary:
+			"ally":
+				pass
+			"enemy":
+				pass
+		
+		
+		match list.target.second:
+			"hp":
+				pass
+			"dice":
+				pass
+			"status":
+				pass
 
-class Target:
+class Request:
 	var number = {}
-	var flag = {}
+	var list = {}
 	
 	func _init(input_):
 		number.index = input_.index
-		flag.ally = input_.ally
-		flag.enemy = input_.enemy
-		flag.hp = input_.hp
-		flag.dice = input_.dice
-		flag.status = input_.status
+		number.size = input_.size
+		list.type = input_.type
+		list.subtype = input_.subtype
+
+class Encounter:
+	var number = {}
+	var array = {}
+	
+	func _init(input_):
+		#number.index = input_.index
+		array.beast = input_.beasts
+	
+	func start():
+		print(1)
 
 class Fragment:
 	var number = {}

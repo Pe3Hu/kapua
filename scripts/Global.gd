@@ -18,6 +18,7 @@ func init_primary_key():
 	list.primary_key.beast = 0
 	list.primary_key.description = 0
 	list.primary_key.request = 0
+	list.primary_key.combination = 0
 
 func init_fragment():
 	list.fragment = {}
@@ -134,14 +135,11 @@ func init_request():
 		list.request[type][subtype] = {}
 		
 		for _s in range(1,6):
-			var request = {}
-			request.index = list.primary_key.request
-			request.type = type
-			request.size = _s
-			request.subtype = subtype
-			array.request.append(request)
-			list.request[type][subtype][_s] = list.primary_key.request
-			list.primary_key.request += 1
+			var input = {}
+			input.size = _s
+			input.type = type
+			input.subtype = subtype
+			add_request(input)
 	
 	type = "serial"
 	list.request[type] = {}
@@ -151,14 +149,11 @@ func init_request():
 	list.request[type][subtype] = {}
 	
 	for _s in range(4,6):
-		var request = {}
-		request.index = list.primary_key.request
-		request.type = type
-		request.size = _s
-		request.subtype = subtype
-		array.request.append(request)
-		list.request[type][subtype][_s] = list.primary_key.request
-		list.primary_key.request += 1
+		var input = {}
+		input.size = _s
+		input.type = type
+		input.subtype = subtype
+		add_request(input)
 
 func init_dice():
 	init_request()
@@ -181,7 +176,6 @@ func init_dice():
 	description.index = list.primary_key.description
 	var dice = {}
 	description.dice = dice
-	#description.request
 
 func init_list():
 	init_primary_key()
@@ -235,6 +229,7 @@ func init_array():
 	array.region = []
 	array.dice = []
 	array.beast = []
+	array.combination = []
 
 func init_scene():
 	pass
@@ -290,8 +285,15 @@ func _ready():
 func add_dice(input_):
 	input_.index = list.primary_key.dice
 	var dice = Classes.Dice.new(input_)
-	array.dice.append(array.dice)
+	array.dice.append(dice)
 	list.primary_key.dice += 1
+
+func add_request(input_):
+	input_.index = list.primary_key.request
+	var request = Classes.Request.new(input_)
+	array.request.append(request)
+	list.request[input_.type][input_.subtype][input_.size] = list.primary_key.request
+	list.primary_key.request += 1
 
 func add_child_node(parent_node_path_,child_node_):
 	#set position if needed
