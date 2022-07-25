@@ -1,14 +1,22 @@
 extends Node2D
 
 
-
 func _ready():
-	init_combination()
-	init_beast()
-	
+	init_dices()
+	init_combinations()
+	init_beasts()
 	init_encounter()
-	
-func init_combination():
+
+func init_dices():
+	var input = {}
+	input.index = Global.list.primary_key.dice
+	input.edges = 6
+	input.values = ["I","I","I","II","II","III"]
+	var dice = Classes.Dice.new(input)
+	Global.array.dice.append(dice)
+	Global.list.primary_key.dice += 1
+
+func init_combinations():
 	var input_combination = {}
 	input_combination.requests = []
 	input_combination.outcomes = []
@@ -30,7 +38,7 @@ func init_combination():
 	input_combination.outcomes.append(outcome)
 	add_combination(input_combination)
 
-func init_beast():
+func init_beasts():
 	var input = {}
 	input.dice = Global.array.dice[0]
 	input.combinations = []
@@ -47,11 +55,11 @@ func init_beast():
 
 func init_encounter():
 	var input = {}
-	input.beast = []
+	input.beasts = []
 	var beast = Global.array.beast[0]
-	input.beast.append(beast)
+	input.beasts.append(beast)
 	beast = Global.array.beast[1]
-	input.beast.append(beast)
+	input.beasts.append(beast)
 	var encounter = Classes.Encounter.new(input)
 	
 	encounter.start()

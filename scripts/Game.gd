@@ -3,8 +3,6 @@ extends Node
 
 func _ready():
 	#calc_roll()
-	
-	init_beasts()
 	pass
 
 func calc_roll():
@@ -24,29 +22,6 @@ func calc_roll():
 		array.append(arr_)
 	print(array.pop_back())
 	print(array.size())
-
-func init_dices():
-	var input = {}
-	input.index = Global.list.primary_key.dice
-	input.edges = 6
-	input.values = ["I","I","I","II","II","III"]
-	var dice = Classes.Dice.new(input)
-	Global.array.dice.append(dice)
-	Global.list.primary_key.dice += 1
-
-func init_beasts():
-	init_dices()
-	
-	var input = {}
-	input.index = Global.list.primary_key.beast
-	var beast = Classes.Beast.new(input)
-	Global.array.beast.append(beast)
-	Global.list.primary_key.beast += 1
-	
-	input.index = Global.list.primary_key.beast
-	beast = Classes.Beast.new(input)
-	Global.array.beast.append(beast)
-	Global.list.primary_key.beast += 1
 
 func _on_Timer_timeout():
 	Global.node.TimeBar.value +=1

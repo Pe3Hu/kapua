@@ -154,6 +154,8 @@ func init_request():
 		input.type = type
 		input.subtype = subtype
 		add_request(input)
+	
+	print(array.request[20].list)
 
 func init_dice():
 	init_request()
@@ -180,7 +182,6 @@ func init_dice():
 func init_list():
 	init_primary_key()
 	init_fragment()
-	init_dice()
 	
 	list.terrain = {}
 	list.terrain.prairie = []
@@ -230,6 +231,8 @@ func init_array():
 	array.dice = []
 	array.beast = []
 	array.combination = []
+	
+	init_dice()
 
 func init_scene():
 	pass
@@ -268,6 +271,8 @@ func init_data():
 	data.osn.min = 1
 	data.osn.max = -1
 	data.osn.l = 0
+	data.dice = {}
+	data.dice.count = 5
 
 func init_flag():
 	flag.ready = false
